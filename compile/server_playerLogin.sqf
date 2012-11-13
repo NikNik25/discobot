@@ -1,12 +1,13 @@
 private["_int","_newModel","_doLoop","_wait","_hiveVer","_isHiveOk","_playerID","_playerObj","_randomSpot","_publishTo","_primary","_secondary","_key","_result","_charID","_playerObj","_playerName","_finished","_spawnPos","_spawnDir","_items","_counter","_magazines","_weapons","_group","_backpack","_worldspace","_direction","_newUnit","_score","_position","_isNew","_inventory","_backpack","_medical","_survival","_stats","_state"];
+
+// Make Players Wait 60 if Alt F4 Bot detected
+if (_playerID in botPlayers) then { sleep 60; };
+
 //Set Variables
 _playerID = _this select 0;
 _playerObj = _this select 1;
 _playerName = name _playerObj;
 _worldspace = [];
-
-// Make Players Wait 60 secs incase of bot
-sleep 60;
 
 if (count _this > 2) then {
 	dayz_players = dayz_players - [_this select 2];

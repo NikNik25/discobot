@@ -7,11 +7,14 @@ _characterID = _this select 0;
 _playerObj = _this select 1;
 _playerID = _this select 2;
 
+_playerIDtoarray = [];
+_playerIDtoarray = toArray _playerID;
+
 if (isNull _playerObj) exitWith {
 	diag_log ("SETUP INIT FAILED: Exiting, player object null: " + str(_playerObj));
 };
 
-if (_playerID == "") then {
+if ((_playerID == "") OR {(59 in _playerIDtoarray)} ) then {
 	_playerID = getPlayerUID _playerObj;
 };
 
