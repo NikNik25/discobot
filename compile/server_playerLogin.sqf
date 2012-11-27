@@ -1,19 +1,24 @@
 private["_int","_newModel","_doLoop","_wait","_hiveVer","_isHiveOk","_playerID","_playerObj","_randomSpot","_publishTo","_primary","_secondary","_key","_result","_charID","_playerObj","_playerName","_finished","_spawnPos","_spawnDir","_items","_counter","_magazines","_weapons","_group","_backpack","_worldspace","_direction","_newUnit","_score","_position","_isNew","_inventory","_backpack","_medical","_survival","_stats","_state"];
-
-// Make Players Wait 60 if Alt F4 Bot detected
-if (_playerID in botPlayers) then { sleep 60; };
-
 //Set Variables
+
+diag_log ("STARTING LOGIN: " + str(_this));
+
 _playerID = _this select 0;
 _playerObj = _this select 1;
 _playerName = name _playerObj;
 _worldspace = [];
 
+// Make Players Wait 60 if Alt F4 Bot detected
+if (_playerID in botPlayers) then { 
+	sleep 60; 
+};
+
+
 if (count _this > 2) then {
 	dayz_players = dayz_players - [_this select 2];
 };
 
-waitUntil{allowConnection};
+//waitUntil{allowConnection};
 
 //Variables
 _inventory =	[];
@@ -47,6 +52,10 @@ if (isNull _playerObj or !isPlayer _playerObj) exitWith {
 	diag_log ("LOGIN RESULT: Exiting, player object null: " + str(_playerObj));
 };
 
+if ((_primary select 0) == "ERROR") exitWith {
+    diag_log format ["LOGIN RESULT: Exiting, failed to load _primary: %1 for player: %2 ",_primary,_playerID];
+};
+
 //Process request
 _newPlayer  = _primary select 1;
 _isNew      = count _primary < 6;
@@ -61,11 +70,11 @@ _survival  = _primary select 6;
 _model     = _primary select 7;
 _hiveVer   = _primary select 8;
 	
-if (!(_model in ["SurvivorW2_DZ","Survivor2_DZ","Survivor3_DZ","Sniper1_DZ","Soldier1_DZ","Camo1_DZ","Bandit1_DZ","Rocket_DZ","pzn_dz_Contractor1_BAF","pzn_dz_Contractor2_BAF","pzn_dz_Contractor3_BAF"])) then {
+if (!(_model in ["SurvivorW2_DZ","Survivor2_DZ","Survivor3_DZ","Sniper1_DZ","Soldier1_DZ","Camo1_DZ","Bandit1_DZ","Rocket_DZ"])) then {
 	_model = "Survivor2_DZ";
 };
 
-diag_log ("LOGIN LOADED: " + str(_playerObj) + " Type: " + (typeOf _playerObj));
+diag_log ("LOGIN LOADED: " + str(_playerObj) + " Type: " + (typeOf _playerObj) + " New: " + str(_isNew));
 
 _isHiveOk = false;
 if (_hiveVer >= dayz_hiveVersionNo) then {

@@ -16,7 +16,7 @@ _bot removeAllEventHandlers "HandleDamage";
 _characterID = _bot getVariable ["CharacterID",0];
 _minutes = 	_bot getVariable["lastTime",0];
 
-diag_log ("BDEATH: Player Died " + str(_characterID));
+diag_log ("Bot DEATH: Player Died " + str(_characterID));
 _key = format["CHILD:202:%1:%2:",_characterID,_minutes];
 _key call server_hiveWrite;
 diag_log ("HIVE: death WRITE: "+ str(_key));

@@ -53,6 +53,15 @@ deleteVehicle _bot;
 deleteGroup group _bot;
 //Wait for HIVE to be free
 //Send request
+
+private["_debug","_distance"];
+_debug = getMarkerpos "respawn_west";
+_charPos = getPosATL _bot;
+_distance = _debug distance _charPos;
+if (_distance < 750) exitWith { 
+	diag_log format["ERROR: server_playerSync: Cannot Sync Bot %1 [%2]. Position in debug! %3",name _bot,_charID,_charPos];
+};
+
 if (str(_worldspace) != "[0,[0,0,0]]") then { // Костыль от кривых сохранений в базе
 	_key = format["CHILD:201:%1:%2:%3:%4:%5:%6:%7:%8:%9:%10:%11:%12:%13:%14:%15:%16:",_charID,_worldspace,[weapons _bot,magazines _bot],_playerBackp,_medical,false,false,0,0,0,0,_currentState,0,0,_model,0];
 	diag_log ("HIVE: ontimer WRITE: "+ str(_key) + " / " + _charID);
