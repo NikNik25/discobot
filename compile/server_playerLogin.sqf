@@ -8,12 +8,6 @@ _playerObj = _this select 1;
 _playerName = name _playerObj;
 _worldspace = [];
 
-// Make Players Wait 60 if Alt F4 Bot detected
-if (_playerID in botPlayers) then { 
-	sleep 60; 
-};
-
-
 if (count _this > 2) then {
 	dayz_players = dayz_players - [_this select 2];
 };
@@ -42,6 +36,11 @@ if ((_playerID == "") or (isNil "_playerID")) exitWith {
 	diag_log ("LOGIN FAILED: Player [" + _playerName + "] has no login ID");
 };
 
+// Make Players Wait 60 if Alt F4 Bot detected
+
+if (_playerID in botPlayers) then {
+	botPlayers = botPlayers - [_playerID];
+};
 endLoadingScreen;
 diag_log ("LOGIN ATTEMPT: " + str(_playerID) + " " + _playerName);
 
@@ -69,12 +68,17 @@ _backpack  = _primary select 5;
 _survival  = _primary select 6;
 _model     = _primary select 7;
 _hiveVer   = _primary select 8;
+
 	
-if (!(_model in ["SurvivorW2_DZ","Survivor2_DZ","Survivor3_DZ","Sniper1_DZ","Soldier1_DZ","Camo1_DZ","Bandit1_DZ","Rocket_DZ"])) then {
+_models = ["SurvivorW2_DZ","Survivor2_DZ","Survivor3_DZ","Sniper1_DZ","Soldier1_DZ","Camo1_DZ","Bandit1_DZ"];
+_starting_models = ["SurvivorW2_DZ","Survivor2_DZ","Survivor3_DZ"];
+
+if (!(_model in _models)) then {
 	_model = "Survivor2_DZ";
 };
 
-diag_log ("LOGIN LOADED: " + str(_playerObj) + " Type: " + (typeOf _playerObj) + " New: " + str(_isNew));
+diag_log ("LOGIN LOADED: " + str(_playerObj) + " Type: " + (typeOf _playerObj));
+diag_log ("Inventory: " + str(_inventory));
 
 _isHiveOk = false;
 if (_hiveVer >= dayz_hiveVersionNo) then {

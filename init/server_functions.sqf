@@ -1,4 +1,9 @@
 waituntil {!isnil "bis_fnc_init"};
+BIS_MPF_remoteExecutionServer = {
+	if ((_this select 1) select 2 == "JIPrequest") then {
+		[nil,(_this select 1) select 0,"loc",rJIPEXEC,[any,any,"per","execVM","ca\Modules\Functions\init.sqf"]] call RE;
+	};
+};
 
 BIS_Effects_Burn =			{};
 object_spawnDamVehicle =	compile preprocessFileLineNumbers "\z\addons\dayz_code\compile\object_spawnDamVehicle.sqf";
@@ -104,11 +109,13 @@ spawn_heliCrash = {
 	};
 	_num = round(random 4) + 3;
 	//_config = 		configFile >> "CfgBuildingLoot" >> "HeliCrash";
-	_itemType =		[] + getArray (_config >> "itemType");
+	//_itemType =		[] + getArray (_config >> "itemType");
 	//diag_log ("DW_DEBUG: _itemType: " + str(_itemType));	
-	_itemChance =	[] + getArray (_config >> "itemChance");
+	//_itemChance =	[] + getArray (_config >> "itemChance");
 	//diag_log ("DW_DEBUG: _itemChance: " + str(_itemChance));	
 	//diag_log ("DW_DEBUG: (isnil fnc_buildWeightedArray): " + str(isnil "fnc_buildWeightedArray"));	
+	_itemType = 	[["M9SD", "weapon"],["BAF_L85A2_UGL_ACOG", "weapon"],["RPK_74", "weapon"],["Mk_48_DZ", "weapon"],[M249_DZ, "weapon"],[BAF_L85A2_RIS_CWS, "weapon"],["", "military"],["", "medical"],["MedBox0", "object"],["NVGoggles", "weapon"],["AmmoBoxSmall_556", "object"],["AmmoBoxSmall_762", "object"],["AK_107_kobra", "weapon"],["AK_74_GL", "weapon"],["1Rnd_HE_GP25", "magazine"],["1Rnd_SMOKE_GP25","magazine"]];
+	_itemChance = [0.2,0.01,0.5,0.02,0.05,0.02,0.5,0.01,0.02,0.05,0.05,0.05,0.2,0.1,0.2,0.1];
 	waituntil {!isnil "fnc_buildWeightedArray"};
 	
 	_weights = [];

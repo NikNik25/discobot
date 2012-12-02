@@ -280,7 +280,11 @@ deleteVehicle _old;
 botPlayers = botPlayers + [_playerUID];
 
 diag_log("Wait 40 seconds");
-sleep 40;
+_waitTimer = 40;
+while {(_playerUID in botPlayers) and (_waitTimer >= 0)} do {
+	_waitTimer = _waitTimer - 1;
+	sleep 1;
+};
 diag_log("Wait over");
 diag_log ("DISCONNECT START (i): " + _playerName + " (" + str(_playerUID) + ") Object: " + str(_object) );
 
@@ -292,4 +296,7 @@ if (alive _bot) then {
 	};
 
 // Update Bot List
-botPlayers = botPlayers - [_playerUID];
+if (_playerUID in botPlayers) then {
+	botPlayers = botPlayers - [_playerUID];
+	diag_log("Bot List Updated");
+};
