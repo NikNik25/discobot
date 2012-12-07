@@ -69,16 +69,9 @@ _survival  = _primary select 6;
 _model     = _primary select 7;
 _hiveVer   = _primary select 8;
 
-	
-_models = ["SurvivorW2_DZ","Survivor2_DZ","Survivor3_DZ","Sniper1_DZ","Soldier1_DZ","Camo1_DZ","Bandit1_DZ"];
-_starting_models = ["SurvivorW2_DZ","Survivor2_DZ","Survivor3_DZ"];
-
-if (!(_model in _models)) then {
-	_model = "Survivor2_DZ";
-};
+// Remove model check & allow bliss to merge in correct if statement for mod / map
 
 diag_log ("LOGIN LOADED: " + str(_playerObj) + " Type: " + (typeOf _playerObj));
-diag_log ("Inventory: " + str(_inventory));
 
 _isHiveOk = false;
 if (_hiveVer >= dayz_hiveVersionNo) then {
